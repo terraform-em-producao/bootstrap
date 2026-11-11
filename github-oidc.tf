@@ -67,7 +67,8 @@ data "aws_iam_policy_document" "confia_github" {
       variable = "token.actions.githubusercontent.com:sub"
       values = flatten([for s in each.value.subs : [
         s,
-        replace(s, "repo:${var.github_org}/", "repo:${var.github_org}@*/"),
+        # Subject imutável: repo:<org>@<org_id>/<repo>@<repo_id>:...
+        replace(s, "/^repo:([^/]+)/([^:]+):/", "repo:$1@*/$2@*:"),
       ]])
     }
   }
