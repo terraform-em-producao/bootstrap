@@ -28,7 +28,7 @@ locals {
       politica = "arn:aws:iam::aws:policy/ReadOnlyAccess"
       state    = { prefixos = ["atlantis/"], escrita = true }
     }
-    # Só um job com `environment: producao` (que exige aprovação) chega aqui.
+    # Só um job com `environment: producao` chega aqui.
     "github-atlantis-apply" = {
       subs     = ["repo:${var.github_org}/atlantis:environment:producao"]
       politica = "arn:aws:iam::aws:policy/AdministratorAccess"
